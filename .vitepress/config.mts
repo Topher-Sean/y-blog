@@ -39,15 +39,27 @@ export default defineConfigWithTheme({
         text: "项目经历",
         items: [
           {
-            text: "通用型后台管理系统",
-            link: "/projects/后台管理/项目搭建、基础配置",
+            text: "ChatPPT 编辑器（多端）",
+            link: "/projects/ChatPPT编辑器/ChatPPT编辑器",
           },
           {
-            text: "YZS高清壁纸项目（微信小程序）",
-            link: "projects/YZS壁纸/项目搭建、样式布局",
+            text: "ChatPPT 多场景应用",
+            link: "/projects/ChatPPT多场景应用/ChatPPT多场景应用",
           },
           {
-            text: "陆渔生物科技企业级内部数据管理系统",
+            text: "TickShow 后台管理平台",
+            link: "/projects/TickShow后台管理平台/TickShow后台管理平台",
+          },
+          {
+            text: "韦尼克文档创作平台",
+            link: "/projects/韦尼克文档创作平台/韦尼克文档创作平台",
+          },
+          {
+            text: "图像标注平台",
+            link: "/projects/图像标注平台/图像标注平台",
+          },
+          {
+            text: "企业级数据管理系统",
             link: "/projects/陆渔生物/陆渔生物",
           },
         ],
@@ -90,50 +102,43 @@ export default defineConfigWithTheme({
       ],
       "/projects/": [
         {
-          text: "通用型后台管理系统",
+          text: "ChatPPT 项目组",
           items: [
             {
-              text: "1、项目搭建、基础配置",
-              link: "/projects/后台管理/项目搭建、基础配置",
+              text: "ChatPPT 编辑器（多端）",
+              link: "/projects/ChatPPT编辑器/ChatPPT编辑器",
             },
             {
-              text: "2、组件引入、登录设置",
-              link: "/projects/后台管理/组件引入、登录设置",
-            },
-            {
-              text: "3、路由配置、页面搭建",
-              link: "/projects/后台管理/路由配置、页面搭建",
-            },
-            {
-              text: "4、动态路由、用户界面",
-              link: "/projects/后台管理/动态路由、用户界面",
-            },
-            {
-              text: "5、高阶组件、页面细节",
-              link: "/projects/后台管理/高阶组件、页面细节",
-            },
-            {
-              text: "6、按钮权限、Echart展示",
-              link: "/projects/后台管理/按钮权限、Echart展示",
+              text: "ChatPPT 多场景应用",
+              link: "/projects/ChatPPT多场景应用/ChatPPT多场景应用",
             },
           ],
         },
         {
-          text: "YZS高清壁纸项目（微信小程序）",
+          text: "AI 平台与中后台",
           items: [
             {
-              text: "1、项目搭建、样式布局",
-              link: "projects/YZS壁纸/项目搭建、样式布局",
+              text: "TickShow 后台管理平台",
+              link: "/projects/TickShow后台管理平台/TickShow后台管理平台",
             },
             {
-              text: "2、功能模块、项目实现",
-              link: "projects/YZS壁纸/功能模块、项目实现",
+              text: "韦尼克文档创作平台",
+              link: "/projects/韦尼克文档创作平台/韦尼克文档创作平台",
             },
           ],
         },
         {
-          text: "陆渔生物科技企业级内部数据管理系统",
-          items: [{ text: "项目简述", link: "/projects/陆渔生物/陆渔生物" }],
+          text: "数据与业务系统",
+          items: [
+            {
+              text: "图像标注平台",
+              link: "/projects/图像标注平台/图像标注平台",
+            },
+            {
+              text: "企业级数据管理系统",
+              link: "/projects/陆渔生物/陆渔生物",
+            },
+          ],
         },
       ],
       "/experience/": [

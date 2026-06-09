@@ -1,0 +1,9 @@
+{
+    "OCRExitCode":  99,
+    "IsErroredOnProcessing":  true,
+    "ErrorMessage":  [
+                         "Unable to recognize the file type",
+                         "E216:Unable to detect the file extension, or the file extension is incorrect, and no \u0027file type\u0027 provided in request. Please provide a file with a proper content type or extension, or provide a file type in the request to manually set the file extension."
+                     ],
+    "ProcessingTimeInMilliseconds":  "203"
+}

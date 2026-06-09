@@ -19,15 +19,15 @@ hero:
 
 features:
   - icon: 💛
-    title: 通用型后台管理系统（Vue3 + TypeScript）
-    details: 常规管理系统后台模板，支持动态表单生成、多主题切换、国际化等企业级功能
-    link: "projects/后台管理/项目搭建、基础配置"
+    title: ChatPPT 编辑器（多端）
+    details: 基于 Vue3 + TypeScript + Vite + Pinia 的在线 PPT 编辑平台，覆盖多视图编排、导入导出、AI 路演与多端适配。
+    link: "projects/ChatPPT编辑器/ChatPPT编辑器"
   - icon: 💜
-    title: YZS高清壁纸项目（微信小程序）（内附小程序二维码）
-    details: 基于uniapp+vue3,实现下载高清壁纸，实现懒加载效果优化性能，减少图片打包体积。
-    link: "projects/YZS壁纸/项目搭建、样式布局"
+    title: TickShow 后台管理平台
+    details: 独立负责 AI 后台管理系统前端架构与核心模块开发，覆盖权限体系、路由体系、状态管理与业务模块建设。
+    link: "projects/TickShow后台管理平台/TickShow后台管理平台"
   - icon: 💚
-    title: 陆渔生物科技企业级内部数据管理系统（React+Semi Design）
-    details: 面向企业内部的B/S架构数据管理平台，包含权限管理、数据看板等核心模块；实现RBAC四级权限体系，支持路由懒加载。
-    link: "/projects/陆渔生物/陆渔生物"
+    title: 韦尼克文档创作平台
+    details: 参与 AI SaaS 平台前端开发，涵盖应用创建、能力接入、在线调试、账户支付、工单与数据看板等核心场景。
+    link: "/projects/韦尼克文档创作平台/韦尼克文档创作平台"
 ---
