@@ -1,0 +1,201 @@
+---
+title: 后台管理实战 · 路由配置、页面搭建
+category: archive
+order: 21
+summary: 登录页面功能、导航守卫与路由配置。
+---
+
+## 一. 登录页面的功能
+
+### 1.1. 导航守卫
+
+```ts
+// 导航守卫
+// 参数: to(跳转到的位置)/from(从哪里跳转过来)
+// 返回值: 返回值决定导航的路径(不返回或者返回undefined, 默认跳转)
+// 举个栗子: / => /main
+// to: /main from: / 返回值: /abc
+router.beforeEach((to) => {
+  // 只有登录成功(token), 才能真正进入到main页面
+  const token = localCache.getCache(LOGIN_TOKEN);
+  if (to.path.startsWith("/main") && !token) {
+    return "/login";
+  }
+});
+```
+
+### 1.2. 记住密码功能
+
+```js
+function loginAction(isRemPwd: boolean) {
+  formRef.value?.validate((valid) => {
+    if (valid) {
+      // 1.获取用户输入的帐号和密码
+      const username = account.username
+      const password = account.password
+
+      // 2.向服务器发送网络请求(携带账号和密码)
+      loginStore.loginAccountAction({ username, password }).then(() => {
+        // 3.判断是否需要记住密码
+        if (isRemPwd) {
+          localCache.setCache(CACHE_NAME, name)
+          localCache.setCache(CACHE_PASSWORD, password)
+        } else {
+          localCache.removeCache(CACHE_NAME)
+          localCache.removeCache(CACHE_PASSWORD)
+        }
+      })
+    } else {
+      ElMessage.error('Oops, 请您输入正确的格式后再操作~~.')
+    }
+  })
+}
+```
+
+### 1.3. main 权限管理
+
+- RBAC: role based access control
+  - 基于角色访问控制(权限管理)
+- 后台数据库设计表
+
+### 1.4. 请求用户信息
+
+- 配置请求头自动携带 token
+
+```js
+interceptors: {
+    requestSuccessFn: (config) => {
+      // 每一个请求都自动携带token
+      const token = localCache.getCache(LOGIN_TOKEN)
+      if (config.headers && token) {
+        // 类型缩小
+        config.headers.Authorization = 'Bearer ' + token
+      }
+      return config
+    }
+  }
+```
+
+### 1.5. 根据角色 id 获取菜单信息
+
+- 制定 state 的类型
+
+```
+ state: (): ILoginState => ({
+    token: localCache.getCache(LOGIN_TOKEN) ?? '',
+    userInfo: localCache.getCache('userInfo') ?? {},
+    userMenus: localCache.getCache('userMenus') ?? []
+  }),
+```
+
+```
+const useLoginStore = defineStore('login', {
+  // 如何制定state的类型
+  state: (): ILoginState => ({
+    token: localCache.getCache(LOGIN_TOKEN) ?? '',
+    userInfo: localCache.getCache('userInfo') ?? {},
+    userMenus: localCache.getCache('userMenus') ?? []
+  }),
+  actions: {
+    async loginAccountAction(account: IAccount) {
+      // 1.账号登录, 获取token等信息
+      const loginResult = await accountLoginRequest(account)
+      const id = loginResult.data.id
+      this.token = loginResult.data.token
+      localCache.setCache(LOGIN_TOKEN, this.token)
+
+      // 2.获取登录用户的详细信息(role信息)
+      const userInfoResult = await getUserInfoById(id)
+      const userInfo = userInfoResult.data
+      this.userInfo = userInfo
+
+      // 3.根据角色请求用户的权限(菜单menus)
+      const userMenusResult = await getUserMenusByRoleId(this.userInfo.role.id)
+      const userMenus = userMenusResult.data
+      this.userMenus = userMenus
+
+      // 4.进行本地缓存
+      localCache.setCache('userInfo', userInfo)
+      localCache.setCache('userMenus', userMenus)
+
+      // 5.页面跳转(main页面)
+      router.push('/main')
+    }
+  }
+})
+```
+
+## 二. 首页的界面搭建
+
+### 2.1. 整体的布局 ElContainer
+
+- 通过 EL 组件，实现布局
+
+### 2.2. 侧边栏的菜单 Menu
+
+#### 2.2.1. 分析 ElMenu 每一个组件的作用
+
+#### 2.2.2. 手动的搭建整个菜单结构
+
+#### 2.2.3. 根据 userMenus 动态遍历
+
+- 遍历整个菜单
+  - 一级菜单`<template v-for="item in userMenus" :key="item.id">`
+    - 二级菜单 `<template v-for="subitem in item.children" :key="subitem.id">`
+
+#### 2.2.4. 图标动态: 动态组件
+
+- 字符串: el-icon-monitor => 组件 component 动态组件
+  - 将字符串转变为组件；使用 split 删除字符，数组表示第几段 `<component :is="item.icon.split('-icon-')[1]" />`
+
+### 2.3. Main 的头部 Header 展示
+
+#### 2.3.1. menu-icon 的图标点击
+
+- 点击切换自己的图标（监听点击事件）
+
+  - 父子组件中的通信
+    - 父组件接收 props
+    ```js
+    defineProps({
+      isFold: {
+        type: Boolean,
+        default: false
+      }
+    })
+    ```
+  - 子组件自定义事件
+
+    - `const emit = defineEmits(['foldChange'])`
+
+      - 点击事件发生，内部将事件传递给父组件`(emit)`
+
+      ```ts
+      function handleMenuIconClick() {
+        // 1.内部改变状态
+        isFold.value = !isFold.value;
+        // 2.将事件和状态传递给父组件
+        emit("foldChange", isFold.value);
+      }
+      ```
+
+- 切换 aside 的宽度(动画)
+- 切换 menu 的折叠效果
+
+#### 2.3.2. 个人信息的展示
+
+- 退出登录
+  - 删除本地储存
+  - 跳转到登陆界面
+- 样式的调整
+
+### 2.4. css 的 deep
+
+- 选择子组件的根，不需要`:deep`
+- 选其他的需要加`:deep`
+- 建议在父组件用子组件样式都加`:deep`
+
+### 2.4. 注册所有的路由, 页面跳转
+
+- 动态的菜单进行权限管理
+- 但是所有的路由都是被注册进去

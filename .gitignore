@@ -1,8 +1,12 @@
 node_modules
-.DS_Store
 dist
 dist-ssr
-cache
-.cache
-.temp
 *.local
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.log
+
+# 临时迁移目录
+_tmp_pdfextract

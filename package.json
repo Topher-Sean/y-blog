@@ -1,13 +1,38 @@
 {
-  "devDependencies": {
-    "vitepress": "^1.6.3"
-  },
+  "name": "yezeshun-blog",
+  "version": "2.0.0",
+  "description": "叶泽顺的个人作品集与前端笔记 · Vue3 + Vite + TailwindCSS",
+  "type": "module",
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "dev": "vite",
+    "build": "vite-ssg build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@escook/vitepress-theme": "^1.3.1"
+    "@unhead/vue": "^2.1.2",
+    "highlight.js": "^11.11.1",
+    "lenis": "^1.1.20",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.2.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": "npm:@rollup/wasm-node@4.34.8"
+    }
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.10.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.6.3",
+    "vite": "^5.4.12",
+    "vite-ssg": "^28.3.0",
+    "vue-tsc": "^2.2.0"
   }
 }
